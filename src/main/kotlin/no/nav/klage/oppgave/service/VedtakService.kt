@@ -1,12 +1,12 @@
 package no.nav.klage.oppgave.service
 
-import no.nav.klage.kodeverk.Hjemmel
 import no.nav.klage.kodeverk.Utfall
+import no.nav.klage.kodeverk.hjemmel.Registreringshjemmel
 import no.nav.klage.oppgave.api.view.VedtakVedleggInput
 import no.nav.klage.oppgave.clients.kabaldocument.KabalDocumentGateway
 import no.nav.klage.oppgave.domain.klage.Klagebehandling
 import no.nav.klage.oppgave.domain.klage.KlagebehandlingAggregatFunctions.setDokumentEnhetIdInVedtak
-import no.nav.klage.oppgave.domain.klage.KlagebehandlingAggregatFunctions.setHjemlerInVedtak
+import no.nav.klage.oppgave.domain.klage.KlagebehandlingAggregatFunctions.setRegistreringshjemlerInVedtak
 import no.nav.klage.oppgave.domain.klage.KlagebehandlingAggregatFunctions.setSmartEditorIdInVedtak
 import no.nav.klage.oppgave.domain.klage.KlagebehandlingAggregatFunctions.setUtfallInVedtak
 import no.nav.klage.oppgave.domain.klage.Vedtak
@@ -53,16 +53,16 @@ class VedtakService(
         return klagebehandling
     }
 
-    fun setHjemler(
+    fun setRegistreringshjemler(
         klagebehandlingId: UUID,
-        hjemler: Set<Hjemmel>,
+        registreringshjemler: Set<Registreringshjemmel>,
         utfoerendeSaksbehandlerIdent: String
     ): Klagebehandling {
         val klagebehandling = klagebehandlingService.getKlagebehandlingForUpdate(
             klagebehandlingId
         )
         val event =
-            klagebehandling.setHjemlerInVedtak(hjemler, utfoerendeSaksbehandlerIdent)
+            klagebehandling.setRegistreringshjemlerInVedtak(registreringshjemler, utfoerendeSaksbehandlerIdent)
         applicationEventPublisher.publishEvent(event)
         return klagebehandling
     }

@@ -1,9 +1,9 @@
 package no.nav.klage.oppgave.domain.klage
 
-import no.nav.klage.kodeverk.Hjemmel
-import no.nav.klage.kodeverk.HjemmelConverter
 import no.nav.klage.kodeverk.Utfall
 import no.nav.klage.kodeverk.UtfallConverter
+import no.nav.klage.kodeverk.hjemmel.Registreringshjemmel
+import no.nav.klage.kodeverk.hjemmel.RegistreringshjemmelConverter
 import java.time.LocalDateTime
 import java.util.*
 import javax.persistence.*
@@ -16,15 +16,15 @@ class Vedtak(
     @Column(name = "utfall_id")
     @Convert(converter = UtfallConverter::class)
     var utfall: Utfall? = null,
-    @ElementCollection(targetClass = Hjemmel::class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = Registreringshjemmel::class, fetch = FetchType.EAGER)
     @CollectionTable(
         name = "vedtak_hjemmel",
         schema = "klage",
         joinColumns = [JoinColumn(name = "vedtak_id", referencedColumnName = "id", nullable = false)]
     )
-    @Convert(converter = HjemmelConverter::class)
+    @Convert(converter = RegistreringshjemmelConverter::class)
     @Column(name = "id")
-    var hjemler: MutableSet<Hjemmel> = mutableSetOf(),
+    var registreringshjemler: MutableSet<Registreringshjemmel> = mutableSetOf(),
     @Column(name = "modified")
     var modified: LocalDateTime = LocalDateTime.now(),
     @Column(name = "created")

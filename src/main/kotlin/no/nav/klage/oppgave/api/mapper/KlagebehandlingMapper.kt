@@ -150,7 +150,7 @@ class KlagebehandlingMapper(
         return VedtakView(
             id = id,
             utfall = utfall?.id,
-            hjemler = hjemler.map { it.id }.toSet(),
+            hjemler = registreringshjemler.map { it.id }.toSet(),
             file = getVedleggView(dokumentEnhetId)
         )
     }

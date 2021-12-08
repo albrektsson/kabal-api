@@ -1,6 +1,7 @@
 package no.nav.klage.oppgave.service.mapper
 
 import no.nav.klage.kodeverk.Kode
+import no.nav.klage.kodeverk.hjemmel.Registreringshjemmel
 import no.nav.klage.oppgave.domain.klage.*
 import java.time.LocalDate
 import java.time.LocalDateTime
@@ -72,6 +73,14 @@ private fun Kode.mapToSkjemaV1(): KlagebehandlingSkjemaV1.Kode {
     )
 }
 
+private fun Registreringshjemmel.mapToSkjemaV1(): KlagebehandlingSkjemaV1.Kode {
+    return KlagebehandlingSkjemaV1.Kode(
+        id = id,
+        navn = lovKilde.beskrivelse + " - " + spesifikasjon,
+        beskrivelse = lovKilde.navn + " - " + spesifikasjon,
+    )
+}
+
 fun Klagebehandling.mapToSkjemaV1(): KlagebehandlingSkjemaV1 {
 
     return KlagebehandlingSkjemaV1(
@@ -106,7 +115,7 @@ fun Klagebehandling.mapToSkjemaV1(): KlagebehandlingSkjemaV1 {
         vedtak = vedtak.let { vedtak ->
             KlagebehandlingSkjemaV1.Vedtak(
                 utfall = vedtak.utfall?.mapToSkjemaV1(),
-                hjemler = vedtak.hjemler.map { it.mapToSkjemaV1() },
+                hjemler = vedtak.registreringshjemler.map { it.mapToSkjemaV1() },
             )
         },
         status = KlagebehandlingSkjemaV1.StatusType.valueOf(getStatus().name)

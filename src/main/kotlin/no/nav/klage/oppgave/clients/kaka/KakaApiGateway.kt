@@ -51,7 +51,7 @@ class KakaApiGateway(private val kakaApiClient: KakaApiClient) {
             vedtaksinstansEnhet = avsenderEnhetFoersteinstans,
             mottattVedtaksinstans = mottattFoersteinstans,
             utfall = vedtak.utfall!!.id,
-            hjemler = vedtak.hjemler.map { it.id },
+            hjemler = vedtak.registreringshjemler.map { it.id },
             kvalitetsvurderingId = kakaKvalitetsvurderingId!!,
             avsluttetAvSaksbehandler = avsluttetAvSaksbehandler!!,
             utfoerendeSaksbehandler = tildeling?.saksbehandlerident!!,

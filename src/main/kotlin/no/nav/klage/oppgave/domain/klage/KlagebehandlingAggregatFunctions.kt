@@ -1,8 +1,8 @@
 package no.nav.klage.oppgave.domain.klage
 
-import no.nav.klage.kodeverk.Hjemmel
 import no.nav.klage.kodeverk.MedunderskriverFlyt
 import no.nav.klage.kodeverk.Utfall
+import no.nav.klage.kodeverk.hjemmel.Registreringshjemmel
 import no.nav.klage.oppgave.domain.events.KlagebehandlingEndretEvent
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -108,13 +108,13 @@ object KlagebehandlingAggregatFunctions {
         return KlagebehandlingEndretEvent(klagebehandling = this, endringslogginnslag = endringslogginnslag)
     }
 
-    fun Klagebehandling.setHjemlerInVedtak(
-        nyVerdi: Set<Hjemmel>,
+    fun Klagebehandling.setRegistreringshjemlerInVedtak(
+        nyVerdi: Set<Registreringshjemmel>,
         saksbehandlerident: String
     ): KlagebehandlingEndretEvent {
-        val gammelVerdi = vedtak.hjemler
+        val gammelVerdi = vedtak.registreringshjemler
         val tidspunkt = LocalDateTime.now()
-        vedtak.hjemler = nyVerdi.toMutableSet()
+        vedtak.registreringshjemler = nyVerdi.toMutableSet()
         vedtak.modified = tidspunkt
         modified = tidspunkt
         val endringslogg =

@@ -5,6 +5,8 @@ import com.ninjasquad.springmockk.SpykBean
 import io.mockk.every
 import io.mockk.mockk
 import no.nav.klage.kodeverk.*
+import no.nav.klage.kodeverk.hjemmel.Hjemmel
+import no.nav.klage.kodeverk.hjemmel.Registreringshjemmel
 import no.nav.klage.oppgave.clients.egenansatt.EgenAnsattService
 import no.nav.klage.oppgave.clients.kabaldocument.KabalDocumentGateway
 import no.nav.klage.oppgave.clients.kaka.KakaApiGateway
@@ -452,8 +454,8 @@ class KlagebehandlingServiceTest {
                     utfall -> Utfall.AVVIST
                     else -> null
                 },
-                hjemler = if (hjemler) mutableSetOf(
-                    Hjemmel.FTL
+                registreringshjemler = if (hjemler) mutableSetOf(
+                    Registreringshjemmel.FTRL_9_2
                 ) else mutableSetOf(),
                 dokumentEnhetId = if (dokumentEnhetId) DOKUMENTENHET_ID else null
             ),
