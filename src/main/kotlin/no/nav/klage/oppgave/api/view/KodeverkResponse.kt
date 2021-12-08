@@ -54,10 +54,13 @@ data class TemaToRegistreringshjemler(val tema: Tema, val hjemler: List<Registre
 val temaToHjemmelList: List<TemaToRegistreringshjemler> = listOf(
     TemaToRegistreringshjemler(
         Tema.OMS,
-        ytelseTilRegistreringshjemler[Ytelse.OMS_PLS]
-            ?.plus(ytelseTilRegistreringshjemler[Ytelse.OMS_OLP])
-            ?.plus(ytelseTilRegistreringshjemler[Ytelse.OMS_OMP])
-            ?.plus(ytelseTilRegistreringshjemler[Ytelse.OMS_PSB])?.distinct() as List<Registreringshjemmel>
+        ytelseTilRegistreringshjemler[Ytelse.OMS_PLS]!!.plus(
+            ytelseTilRegistreringshjemler[Ytelse.OMS_OLP]!!.plus(
+                ytelseTilRegistreringshjemler[Ytelse.OMS_OMP]!!.plus(
+                    ytelseTilRegistreringshjemler[Ytelse.OMS_PSB]!!
+                )
+            )
+        ).distinct()
     ),
     TemaToRegistreringshjemler(
         Tema.SYK,
