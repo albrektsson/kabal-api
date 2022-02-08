@@ -144,7 +144,7 @@ class MicrosoftGraphClient(
             .uri { uriBuilder ->
                 uriBuilder
                     .path("/users")
-                    .queryParam("\$filter", "streetAddress in $enhetNr")
+                    .queryParam("\$filter", "streetAddress eq '$enhetNr'")
                     .queryParam("\$count", true)
                     .queryParam("\$top", 500)
                     .queryParam("\$select", slimUserSelect)
@@ -155,7 +155,7 @@ class MicrosoftGraphClient(
             .retrieve()
             .bodyToMono<AzureSlimUserList>()
             .block()
-            .let { userList -> userList?.value?.map { it.userPrincipalName } }
+            .let { userList -> userList?.value?.map { it.onPremisesSamAccountName } }
             ?: throw RuntimeException("AzureAD data about authenticated user could not be fetched")
     }
 
